@@ -11,12 +11,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        // 1. 创建窗口
+        let window = UIWindow(windowScene: windowScene)
+        
+        // 2. 初始化相机视图控制器
+        let cameraVC = CameraViewController()
+        
+        // 3. 嵌入导航控制器（可选）
+        let navController = UINavigationController(rootViewController: cameraVC)
+        
+        // 4. 设置根视图控制器
+        window.rootViewController = navController
+        
+        // 5. 保持强引用
+        self.window = window
+        
+        // 6. 显示窗口
+        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
